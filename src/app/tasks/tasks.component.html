@@ -1,0 +1,36 @@
+<div class="tasks-container">
+  <div class="tasks-grid">
+    <div
+      *ngFor="let task of tasks"
+      class="task-card"
+      [class.completed]="task.isCompleted"
+    >
+      <div class="task-header">
+        <div>
+          <h3>{{ task.taskName }}</h3>
+          <p class="task-description">{{ task.taskDescription }}</p>
+        </div>
+        <div class="task-actions">
+          <label class="toggle-switch">
+            <input
+              type="checkbox"
+              [checked]="task.isCompleted"
+              (change)="toggleComplete(task)"
+            />
+            <span class="slider"></span>
+          </label>
+          <button class="edit-task" (click)="editTask(task)">Edit</button>
+          <button class="delete-task" (click)="deleteTask(task.itemId)">
+            Delete
+          </button>
+        </div>
+      </div>
+      <div class="task-meta">
+        <span class="due-date"
+          >Due: {{ task.dueDate | date : "shortDate" }}</span
+        >
+        <span class="tags">Tags: {{ task.tags }}</span>
+      </div>
+    </div>
+  </div>
+</div>

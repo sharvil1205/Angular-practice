@@ -1,0 +1,10 @@
+<div class="search-container">
+  <!-- Event binding -->
+  <input
+    type="text"
+    class="search-input"
+    placeholder="Search..."
+    (input)="onSearch($event)"
+  />
+  <p>{{ searchValue }}</p>
+</div>

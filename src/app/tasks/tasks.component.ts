@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MatDialog } from '@angular/material/dialog';
+
+import { TaskDialogComponent } from '../task-dialog/task-dialog.component';
 
 @Component({
   selector: 'app-tasks',
@@ -42,51 +45,45 @@ export class TasksComponent {
       tags: 'React, Hooks, State',
       completedOn: '2025-01-14T15:30:00.000',
     },
-    {
-      itemId: 2233,
-      taskName: 'Debugging Tips',
-      taskDescription:
-        'Learn how to debug effectively in Chrome DevTools and VS Code.',
-      dueDate: '2025-01-21T00:00:00',
-      createdOn: '2025-01-13T14:00:00.000',
-      isCompleted: false,
-      tags: 'Debugging, Tools, Tips',
-      completedOn: null,
-    },
-    {
-      itemId: 2234,
-      taskName: 'Database Optimization',
-      taskDescription:
-        'Understand indexing and query optimization techniques in PostgreSQL.',
-      dueDate: '2025-01-25T00:00:00',
-      createdOn: '2025-01-12T16:20:00.000',
-      isCompleted: true,
-      tags: 'Database, Optimization, PostgreSQL',
-      completedOn: '2025-01-14T10:45:00.000',
-    },
-    {
-      itemId: 2235,
-      taskName: 'API Development with Node.js',
-      taskDescription:
-        'Create a REST API using Express.js with basic CRUD operations.',
-      dueDate: '2025-01-19T00:00:00',
-      createdOn: '2025-01-13T09:15:00.000',
-      isCompleted: false,
-      tags: 'API, Node.js, Express',
-      completedOn: null,
-    },
   ];
 
   toggleComplete(task: any): void {
     task.isCompleted = !task.isCompleted;
-    if (task.isCompleted) {
-      task.completedOn = new Date().toISOString();
-    } else {
-      task.completedOn = null;
-    }
+    task.completedOn = task.isCompleted ? new Date().toISOString() : null;
   }
 
-  editTask(task: any): void {}
+  constructor(private dialog: MatDialog) {}
 
-  deleteTask(itemId: number): void {}
+  editTask(task: any): void {
+    const dialogRef = this.dialog.open(TaskDialogComponent, {
+      width: '800px',
+      data: { task: { ...task }, mode: 'edit' },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        const index = this.tasks.findIndex((t) => t.itemId === task.itemId);
+        if (index > -1) this.tasks[index] = result;
+      }
+    });
+  }
+
+  addTask(): void {
+    const dialogRef = this.dialog.open(TaskDialogComponent, {
+      width: '400px',
+      panelClass: 'myapp-no-padding-dialog',
+      data: { task: {}, mode: 'add' },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        result.itemId = Date.now();
+        this.tasks.push(result);
+      }
+    });
+  }
+
+  deleteTask(itemId: number): void {
+    this.tasks = this.tasks.filter((task) => task.itemId !== itemId);
+  }
 }

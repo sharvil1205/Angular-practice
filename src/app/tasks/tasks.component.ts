@@ -1,12 +1,10 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { MatDialog } from '@angular/material/dialog';
-
 import { TaskDialogComponent } from '../task-dialog/task-dialog.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-tasks',
-  imports: [CommonModule],
+  imports: [CommonModule, TaskDialogComponent],
   templateUrl: './tasks.component.html',
   styleUrls: ['./tasks.component.css'],
 })
@@ -47,40 +45,39 @@ export class TasksComponent {
     },
   ];
 
+  selectedTask: any = null;
+  dialogMode: 'edit' | 'add' = 'add';
+  isDialogOpen = false;
+
   toggleComplete(task: any): void {
     task.isCompleted = !task.isCompleted;
-    task.completedOn = task.isCompleted ? new Date().toISOString() : null;
   }
 
-  constructor(private dialog: MatDialog) {}
+  openTaskDialog(task?: any): void {
+    this.selectedTask = task ? { ...task } : {};
+    this.dialogMode = task ? 'edit' : 'add';
+    this.isDialogOpen = true;
+  }
+
+  closeTaskDialog(): void {
+    this.isDialogOpen = false;
+  }
+
+  saveTask(updatedTask: any): void {
+    if (this.dialogMode === 'edit') {
+      const index = this.tasks.findIndex(
+        (t) => t.itemId === updatedTask.itemId
+      );
+      if (index > -1) this.tasks[index] = updatedTask;
+    } else {
+      updatedTask.itemId = Date.now();
+      this.tasks.push(updatedTask);
+    }
+    this.closeTaskDialog();
+  }
 
   editTask(task: any): void {
-    const dialogRef = this.dialog.open(TaskDialogComponent, {
-      width: '800px',
-      data: { task: { ...task }, mode: 'edit' },
-    });
-
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        const index = this.tasks.findIndex((t) => t.itemId === task.itemId);
-        if (index > -1) this.tasks[index] = result;
-      }
-    });
-  }
-
-  addTask(): void {
-    const dialogRef = this.dialog.open(TaskDialogComponent, {
-      width: '400px',
-      panelClass: 'myapp-no-padding-dialog',
-      data: { task: {}, mode: 'add' },
-    });
-
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        result.itemId = Date.now();
-        this.tasks.push(result);
-      }
-    });
+    this.openTaskDialog(task);
   }
 
   deleteTask(itemId: number): void {

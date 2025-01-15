@@ -1,4 +1,5 @@
 <div class="tasks-container">
+  <!-- Tasks Grid -->
   <div class="tasks-grid">
     <div
       *ngFor="let task of tasks"
@@ -33,4 +34,13 @@
       </div>
     </div>
   </div>
+
+  <!-- Task Dialog (conditionally rendered) -->
+  <app-task-dialog
+    *ngIf="isDialogOpen"
+    [task]="selectedTask"
+    [mode]="dialogMode"
+    (save)="saveTask($event)"
+    (cancel)="closeTaskDialog()"
+  ></app-task-dialog>
 </div>

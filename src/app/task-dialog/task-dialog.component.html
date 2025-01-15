@@ -1,57 +1,61 @@
-<div class="dialog-container">
-  <div class="dialog-title">{{ isEditMode ? "Edit Task" : "Add Task" }}</div>
-  <div class="dialog-content">
-    <form>
-      <div class="form-field padded-field">
-        <label for="taskName" class="form-label">Title</label>
-        <input
-          type="text"
-          id="taskName"
-          class="form-input"
-          [(ngModel)]="data.task.taskName"
-          name="taskName"
-          required
-        />
-      </div>
+<div class="dialog-overlay">
+  <div class="dialog-container">
+    <div class="dialog-title">
+      {{ mode === "edit" ? "Edit Task" : "Add Task" }}
+    </div>
+    <div class="dialog-content">
+      <form>
+        <div class="form-field padded-field">
+          <label for="taskName" class="form-label">Title</label>
+          <input
+            type="text"
+            id="taskName"
+            class="form-input"
+            [(ngModel)]="task.taskName"
+            name="taskName"
+            required
+          />
+        </div>
 
-      <div class="form-field padded-field">
-        <label for="taskDescription" class="form-label">Description</label>
-        <textarea
-          id="taskDescription"
-          class="form-input"
-          rows="3"
-          [(ngModel)]="data.task.taskDescription"
-          name="taskDescription"
-        ></textarea>
-      </div>
+        <div class="form-field padded-field">
+          <label for="taskDescription" class="form-label">Description</label>
+          <textarea
+            id="taskDescription"
+            class="form-input"
+            rows="3"
+            [(ngModel)]="task.taskDescription"
+            name="taskDescription"
+          ></textarea>
+        </div>
 
-      <div class="form-field padded-field">
-        <label for="tags" class="form-label">Tags</label>
-        <input
-          type="text"
-          id="tags"
-          class="form-input"
-          [(ngModel)]="data.task.tags"
-          name="tags"
-        />
-      </div>
+        <div class="form-field padded-field">
+          <label for="tags" class="form-label">Tags</label>
+          <input
+            type="text"
+            id="tags"
+            class="form-input"
+            [(ngModel)]="task.tags"
+            name="tags"
+          />
+        </div>
 
-      <div class="form-field padded-field">
-        <label for="dueDate" class="form-label">Due Date</label>
-        <input
-          type="date"
-          id="dueDate"
-          class="form-input"
-          [(ngModel)]="data.task.dueDate"
-          name="dueDate"
-        />
-      </div>
-    </form>
-  </div>
-  <div class="dialog-actions">
-    <button class="button cancel-button" (click)="onCancel()">Cancel</button>
-    <button class="button save-button" (click)="onSave()">
-      {{ isEditMode ? "Save" : "Add" }}
-    </button>
+        <div class="form-field padded-field">
+          <label for="dueDate" class="form-label">Due Date</label>
+          <input
+            type="date"
+            id="dueDate"
+            class="form-input"
+            [(ngModel)]="task.dueDate"
+            name="dueDate"
+          />
+        </div>
+      </form>
+    </div>
+    <div class="dialog-actions">
+      <button class="button cancel-button" (click)="onCancel()">Cancel</button>
+      <button class="button save-button" (click)="onSave()">
+        {{ mode === "edit" ? "Save" : "Add" }}
+      </button>
+    </div>
   </div>
 </div>

@@ -1,5 +1,4 @@
-import { Component, Inject, ViewEncapsulation } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -21,26 +20,26 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FormsModule,
     ReactiveFormsModule,
   ],
-  encapsulation: ViewEncapsulation.None,
-
   templateUrl: './task-dialog.component.html',
   styleUrls: ['./task-dialog.component.css'],
 })
 export class TaskDialogComponent {
-  isEditMode: boolean;
+  @Input() task: any = {};
+  @Input() mode: 'edit' | 'add' = 'add';
+  @Output() save = new EventEmitter<any>();
+  @Output() cancel = new EventEmitter<void>();
 
-  constructor(
-    public dialogRef: MatDialogRef<TaskDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { task: any; mode: string }
-  ) {
-    this.isEditMode = data.mode === 'edit';
-  }
+  isEditMode: boolean = false;
 
-  onCancel(): void {
-    this.dialogRef.close(); // Close without saving
+  ngOnInit(): void {
+    this.isEditMode = this.mode === 'edit';
   }
 
   onSave(): void {
-    this.dialogRef.close(this.data.task); // Close with updated/new task
+    this.save.emit(this.task);
+  }
+
+  onCancel(): void {
+    this.cancel.emit();
   }
 }

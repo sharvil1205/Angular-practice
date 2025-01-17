@@ -1,61 +1,62 @@
-<div class="dialog-overlay">
-  <div class="dialog-container">
-    <div class="dialog-title">
-      {{ mode === "edit" ? "Edit Task" : "Add Task" }}
-    </div>
-    <div class="dialog-content">
-      <form>
-        <div class="form-field padded-field">
-          <label for="taskName" class="form-label">Title</label>
-          <input
-            type="text"
-            id="taskName"
-            class="form-input"
-            [(ngModel)]="task.taskName"
-            name="taskName"
-            required
-          />
-        </div>
+<div class="mat-dialog-container">
+  <h1 mat-dialog-title>
+    {{ mode === "edit" ? "Edit Task" : "Add Task" }}
+  </h1>
+  <mat-dialog-content class="mat-dialog-content">
+    <mat-form-field appearance="fill">
+      <mat-label>Title</mat-label>
+      <input
+        matInput
+        type="text"
+        [(ngModel)]="task.taskName"
+        name="taskName"
+        required
+        placeholder="Enter task title"
+      />
+    </mat-form-field>
 
-        <div class="form-field padded-field">
-          <label for="taskDescription" class="form-label">Description</label>
-          <textarea
-            id="taskDescription"
-            class="form-input"
-            rows="3"
-            [(ngModel)]="task.taskDescription"
-            name="taskDescription"
-          ></textarea>
-        </div>
+    <mat-form-field appearance="fill">
+      <mat-label>Description</mat-label>
+      <textarea
+        matInput
+        rows="3"
+        [(ngModel)]="task.taskDescription"
+        name="taskDescription"
+        placeholder="Enter task description"
+      ></textarea>
+    </mat-form-field>
 
-        <div class="form-field padded-field">
-          <label for="tags" class="form-label">Tags</label>
-          <input
-            type="text"
-            id="tags"
-            class="form-input"
-            [(ngModel)]="task.tags"
-            name="tags"
-          />
-        </div>
+    <mat-form-field appearance="fill">
+      <mat-label>Tags</mat-label>
+      <input
+        matInput
+        type="text"
+        [(ngModel)]="task.tags"
+        name="tags"
+        placeholder="e.g., work, priority"
+      />
+    </mat-form-field>
 
-        <div class="form-field padded-field">
-          <label for="dueDate" class="form-label">Due Date</label>
-          <input
-            type="date"
-            id="dueDate"
-            class="form-input"
-            [(ngModel)]="task.dueDate"
-            name="dueDate"
-          />
-        </div>
-      </form>
-    </div>
-    <div class="dialog-actions">
-      <button class="button cancel-button" (click)="onCancel()">Cancel</button>
-      <button class="button save-button" (click)="onSave()">
-        {{ mode === "edit" ? "Save" : "Add" }}
-      </button>
-    </div>
-  </div>
+    <mat-form-field appearance="fill">
+      <mat-label>Due Date</mat-label>
+      <input
+        matInput
+        [matDatepicker]="picker"
+        [(ngModel)]="task.dueDate"
+        name="dueDate"
+        placeholder="Select due date"
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+  </mat-dialog-content>
+
+  <mat-dialog-actions>
+    <button mat-button class="cancel-button" (click)="onCancel()">
+      Cancel
+    </button>
+    <button mat-raised-button class="save-button" (click)="onSave()">
+      {{ mode === "edit" ? "Save" : "Add" }}
+    </button>
+  </mat-dialog-actions>
 </div>

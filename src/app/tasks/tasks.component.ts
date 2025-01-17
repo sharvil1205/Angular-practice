@@ -1,10 +1,32 @@
 import { Component } from '@angular/core';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { TaskDialogComponent } from '../task-dialog/task-dialog.component';
 import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-tasks',
-  imports: [CommonModule, TaskDialogComponent],
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    CommonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatDialogModule,
+    MatSlideToggleModule,
+    MatCardModule,
+  ],
   templateUrl: './tasks.component.html',
   styleUrls: ['./tasks.component.css'],
 })
@@ -49,18 +71,21 @@ export class TasksComponent {
   dialogMode: 'edit' | 'add' = 'add';
   isDialogOpen = false;
 
-  toggleComplete(task: any): void {
-    task.isCompleted = !task.isCompleted;
-  }
+  constructor(private dialog: MatDialog) {}
 
   openTaskDialog(task?: any): void {
     this.selectedTask = task ? { ...task } : {};
     this.dialogMode = task ? 'edit' : 'add';
-    this.isDialogOpen = true;
-  }
 
-  closeTaskDialog(): void {
-    this.isDialogOpen = false;
+    const dialogRef = this.dialog.open(TaskDialogComponent, {
+      data: { task: this.selectedTask, mode: this.dialogMode },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.saveTask(result);
+      }
+    });
   }
 
   saveTask(updatedTask: any): void {
@@ -73,11 +98,14 @@ export class TasksComponent {
       updatedTask.itemId = Date.now();
       this.tasks.push(updatedTask);
     }
-    this.closeTaskDialog();
   }
 
   editTask(task: any): void {
     this.openTaskDialog(task);
+  }
+
+  addTask(): void {
+    this.openTaskDialog();
   }
 
   deleteTask(itemId: number): void {

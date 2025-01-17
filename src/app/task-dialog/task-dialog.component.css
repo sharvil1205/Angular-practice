@@ -1,65 +1,32 @@
-.dialog-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-
-.dialog-container {
-  background-color: whitesmoke;
+.mat-dialog-container {
+  background-color: white !important;
   border-radius: 8px;
   width: 700px;
-  max-width: 95%;
+  max-width: 100%;
   min-width: 320px;
-  padding: 32px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  position: relative;
 }
 
-.dialog-title {
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin-bottom: 16px;
-  color: #000000;
-}
-
-.dialog-content {
-  margin-bottom: 16px;
-}
-
-.form-field {
-  margin-bottom: 16px;
-}
-
-.form-label {
-  display: block;
-  margin-bottom: 4px;
-  color: #000000;
-}
-
-.form-input {
-  width: 100%;
-  padding: 8px;
-  border: 1px solid #cccccc;
+.cancel-button {
+  background-color: whitesmoke !important;
+  color: black !important;
   border-radius: 4px;
-  background-color: #ffffff;
-  color: #000000;
+  border: groove;
 }
 
-.form-input:focus {
-  outline: none;
-  border-color: #666666;
-  background-color: #ffffff;
+.save-button {
+  background-color: darkblue !important;
+  color: #ffffff !important;
+  border-radius: 4px;
 }
 
-textarea.form-input {
-  resize: none;
+.save-button:hover {
+  background-color: #0b5fb2 !important;
+}
+
+.mat-dialog-content {
+  display: flex !important;
+  flex-direction: column !important;
 }
 
 .dialog-actions {
@@ -67,25 +34,4 @@ textarea.form-input {
   justify-content: flex-end;
   align-items: center;
   gap: 8px;
-}
-
-.button {
-  padding: 8px 16px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.cancel-button {
-  background-color: transparent;
-  color: #000000;
-}
-
-.save-button {
-  background-color: darkblue;
-  color: #ffffff;
-}
-
-.save-button:hover {
-  background-color: #002244;
 }

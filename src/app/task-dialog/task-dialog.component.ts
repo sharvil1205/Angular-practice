@@ -1,4 +1,12 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  Component,
+  Inject,
+  Input,
+  Output,
+  EventEmitter,
+  ViewEncapsulation,
+} from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -6,10 +14,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-task-dialog',
   standalone: true,
+  encapsulation: ViewEncapsulation.None,
   imports: [
     CommonModule,
     MatFormFieldModule,
@@ -19,6 +29,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatNativeDateModule,
     FormsModule,
     ReactiveFormsModule,
+    MatDialogModule,
+    MatDialogModule,
+    MatButtonModule,
+    MatInputModule,
+    MatFormFieldModule,
   ],
   templateUrl: './task-dialog.component.html',
   styleUrls: ['./task-dialog.component.css'],
@@ -29,17 +44,20 @@ export class TaskDialogComponent {
   @Output() save = new EventEmitter<any>();
   @Output() cancel = new EventEmitter<void>();
 
-  isEditMode: boolean = false;
-
-  ngOnInit(): void {
-    this.isEditMode = this.mode === 'edit';
+  constructor(
+    public dialogRef: MatDialogRef<TaskDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) {
+    this.task = data?.task || {};
+    this.mode = data?.mode || 'add';
   }
 
   onSave(): void {
     this.save.emit(this.task);
+    this.dialogRef.close(this.task);
   }
 
   onCancel(): void {
-    this.cancel.emit();
+    this.dialogRef.close();
   }
 }

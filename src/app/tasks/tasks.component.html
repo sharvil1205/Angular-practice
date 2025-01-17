@@ -1,46 +1,51 @@
 <div class="tasks-container">
+  <button mat-raised-button class="add-task-button" (click)="openTaskDialog()">
+    Add Task
+  </button>
   <!-- Tasks Grid -->
   <div class="tasks-grid">
-    <div
+    <mat-card
       *ngFor="let task of tasks"
       class="task-card"
       [class.completed]="task.isCompleted"
     >
-      <div class="task-header">
-        <div>
-          <h3>{{ task.taskName }}</h3>
-          <p class="task-description">{{ task.taskDescription }}</p>
-        </div>
-        <div class="task-actions">
-          <label class="toggle-switch">
-            <input
-              type="checkbox"
-              [checked]="task.isCompleted"
-              (change)="toggleComplete(task)"
-            />
-            <span class="slider"></span>
-          </label>
-          <button class="edit-task" (click)="editTask(task)">Edit</button>
-          <button class="delete-task" (click)="deleteTask(task.itemId)">
-            Delete
-          </button>
-        </div>
-      </div>
-      <div class="task-meta">
-        <span class="due-date"
-          >Due: {{ task.dueDate | date : "shortDate" }}</span
-        >
-        <span class="tags">Tags: {{ task.tags }}</span>
-      </div>
-    </div>
-  </div>
+      <div class="task-actions">
+        <mat-card-content>
+          <mat-card-title>{{ task.taskName }}</mat-card-title>
+          <p *ngIf="task.taskDescription">
+            {{ task.taskDescription }}
+          </p>
+        </mat-card-content>
 
-  <!-- Task Dialog (conditionally rendered) -->
-  <app-task-dialog
-    *ngIf="isDialogOpen"
-    [task]="selectedTask"
-    [mode]="dialogMode"
-    (save)="saveTask($event)"
-    (cancel)="closeTaskDialog()"
-  ></app-task-dialog>
+        <mat-card-content>
+          <div class="task-buttons">
+            <mat-slide-toggle [(ngModel)]="task.isCompleted" color="primary" />
+            <button
+              mat-raised-button
+              class="edit-task"
+              (click)="editTask(task)"
+            >
+              Edit
+            </button>
+            <button
+              mat-raised-button
+              class="delete-task"
+              (click)="deleteTask(task.itemId)"
+            >
+              Delete
+            </button>
+          </div>
+        </mat-card-content>
+      </div>
+
+      <mat-card-footer>
+        <div class="task-footer">
+          <span class="due-date"
+            >Due: {{ task.dueDate | date : "shortDate" }}</span
+          >
+          <span class="tags">Tags: {{ task.tags }}</span>
+        </div>
+      </mat-card-footer>
+    </mat-card>
+  </div>
 </div>

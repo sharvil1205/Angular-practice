@@ -1,37 +1,7 @@
-.mat-dialog-container {
-  background-color: white !important;
-  border-radius: 8px;
-  width: 700px;
-  max-width: 100%;
-  min-width: 320px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.cancel-button {
-  background-color: whitesmoke !important;
-  color: black !important;
-  border-radius: 4px;
-  border: groove;
-}
-
-.save-button {
-  background-color: darkblue !important;
-  color: #ffffff !important;
-  border-radius: 4px;
-}
-
-.save-button:hover {
-  background-color: #0b5fb2 !important;
-}
-
 .mat-dialog-content {
   display: flex !important;
   flex-direction: column !important;
-}
-
-.dialog-actions {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  gap: 8px;
+  width: 700px;
+  max-width: 100%;
+  min-width: 320px;
 }

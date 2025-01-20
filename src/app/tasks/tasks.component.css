@@ -24,6 +24,11 @@
   font-size: 2rem;
 }
 
+.header-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
 .tasks-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));

@@ -1,0 +1,44 @@
+<h2 mat-dialog-title>
+  {{ data.mode === "edit" ? "Edit Task" : "Add Task" }}
+</h2>
+
+<form [formGroup]="taskForm" (ngSubmit)="saveTask()">
+  <mat-dialog-content class="form-class">
+    <mat-form-field appearance="fill">
+      <mat-label>Task Name</mat-label>
+      <input matInput formControlName="taskName" />
+      <mat-error *ngIf="taskForm.get('taskName')?.hasError('required')">
+        Task Name is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Task Description</mat-label>
+      <textarea matInput formControlName="taskDescription"></textarea>
+      <mat-error *ngIf="taskForm.get('taskDescription')?.hasError('required')">
+        Task Description is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Due Date</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="dueDate" />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Tags</mat-label>
+      <input matInput formControlName="tags" />
+    </mat-form-field>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button (click)="closeDialog()" class="cancel-button">
+      Cancel
+    </button>
+    <button mat-raised-button [disabled]="taskForm.invalid" class="save-button">
+      Save
+    </button>
+  </mat-dialog-actions>
+</form>

@@ -27,10 +27,38 @@
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
 
-    <mat-form-field appearance="fill">
-      <mat-label>Tags</mat-label>
-      <input matInput formControlName="tags" />
-    </mat-form-field>
+    <!-- Tags Section -->
+    <div>
+      <label>Tags</label>
+      <div formArrayName="tags" class="tags-list">
+        <div
+          *ngFor="let tag of tags.controls; let i = index"
+          [formGroupName]="i"
+          class="tag-item"
+        >
+          <mat-form-field appearance="outline" class="tags-form">
+            <input matInput formControlName="value" placeholder="Enter tag" />
+          </mat-form-field>
+          <button
+            type="button"
+            mat-icon-button
+            color="warn"
+            (click)="removeTag(i)"
+          >
+            <mat-icon>close</mat-icon>
+          </button>
+        </div>
+      </div>
+      <button
+        type="button"
+        mat-button
+        color="primary"
+        (click)="addTag()"
+        class="add-tag"
+      >
+        <mat-icon>add</mat-icon> Add Tag
+      </button>
+    </div>
   </mat-dialog-content>
 
   <mat-dialog-actions align="end">

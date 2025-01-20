@@ -5,3 +5,19 @@
   max-width: 100%;
   min-width: 320px;
 }
+
+.tags-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.tag-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tags-form {
+  width: 10rem;
+}

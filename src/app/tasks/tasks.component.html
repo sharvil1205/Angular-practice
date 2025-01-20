@@ -1,7 +1,16 @@
 <div class="tasks-container">
-  <button mat-raised-button class="add-task-button" (click)="openTaskDialog()">
-    Add Task
-  </button>
+  <div class="header-buttons">
+    <button
+      mat-raised-button
+      class="add-task-button"
+      (click)="openTaskDialog()"
+    >
+      Add Task
+    </button>
+    <mat-slide-toggle [(ngModel)]="useReactiveDialog">
+      Use Reactive Task Dialog
+    </mat-slide-toggle>
+  </div>
   <!-- Tasks Grid -->
   <div class="tasks-grid">
     <mat-card

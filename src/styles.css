@@ -6,3 +6,25 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+
+.cancel-button {
+  background-color: whitesmoke !important;
+  color: black !important;
+  border-radius: 4px;
+  border: groove;
+}
+
+.save-button {
+  background-color: darkblue !important;
+  color: #ffffff !important;
+  border-radius: 4px;
+}
+
+.save-button:disabled {
+  background-color: gray !important;
+  cursor: not-allowed !important;
+}
+
+.save-button:hover {
+  background-color: #0b5fb2 !important;
+}

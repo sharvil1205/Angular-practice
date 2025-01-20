@@ -43,6 +43,7 @@ export class TaskDialogComponent {
   @Input() mode: 'edit' | 'add' = 'add';
   @Output() save = new EventEmitter<any>();
   @Output() cancel = new EventEmitter<void>();
+  private initialTask: string = '';
 
   constructor(
     public dialogRef: MatDialogRef<TaskDialogComponent>,
@@ -59,5 +60,13 @@ export class TaskDialogComponent {
 
   onCancel(): void {
     this.dialogRef.close();
+  }
+
+  isTaskModified(): boolean {
+    return JSON.stringify(this.task) !== this.initialTask;
+  }
+
+  ngOnInit() {
+    this.initialTask = JSON.stringify(this.task);
   }
 }

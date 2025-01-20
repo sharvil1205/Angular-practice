@@ -10,6 +10,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatCardModule } from '@angular/material/card';
+import { TaskDialogReactiveComponent } from '../task-dialog-reactive/task-dialog-reactive.component';
 
 @Component({
   selector: 'app-tasks',
@@ -70,6 +71,7 @@ export class TasksComponent {
   selectedTask: any = null;
   dialogMode: 'edit' | 'add' = 'add';
   isDialogOpen = false;
+  useReactiveDialog = false;
 
   constructor(private dialog: MatDialog) {}
 
@@ -77,7 +79,11 @@ export class TasksComponent {
     this.selectedTask = task ? { ...task } : {};
     this.dialogMode = task ? 'edit' : 'add';
 
-    const dialogRef = this.dialog.open(TaskDialogComponent, {
+    const dialogComponent = this.useReactiveDialog
+      ? TaskDialogReactiveComponent
+      : TaskDialogComponent;
+
+    const dialogRef = this.dialog.open(dialogComponent as any, {
       data: { task: this.selectedTask, mode: this.dialogMode },
     });
 

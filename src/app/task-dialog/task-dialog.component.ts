@@ -5,6 +5,7 @@ import {
   Output,
   EventEmitter,
   ViewEncapsulation,
+  SimpleChanges,
 } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
@@ -68,5 +69,15 @@ export class TaskDialogComponent {
 
   ngOnInit() {
     this.initialTask = JSON.stringify(this.task);
+  }
+
+  ngAfterContentInit(): void {
+    console.log('Content has been initialized');
+    const taskNameInput = document.querySelector(
+      '#taskNameInput'
+    ) as HTMLInputElement;
+    if (taskNameInput) {
+      taskNameInput.focus();
+    }
   }
 }

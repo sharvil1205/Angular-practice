@@ -1,5 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, Inject, OnInit } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  Inject,
+  OnInit,
+  SimpleChanges,
+  ViewChild,
+} from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -36,6 +43,7 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class TaskDialogReactiveComponent implements OnInit {
   taskForm!: FormGroup;
+  @ViewChild('taskNameInput') taskNameInput!: ElementRef;
 
   constructor(
     private fb: FormBuilder,
@@ -97,4 +105,28 @@ export class TaskDialogReactiveComponent implements OnInit {
   closeDialog(): void {
     this.dialogRef.close(null);
   }
+
+  ngAfterViewInit(): void {
+    this.taskNameInput.nativeElement.focus();
+  }
+
+  ngDoCheck(): void {
+    if (this.taskForm.get('taskName')?.dirty) {
+      console.log('Task name has been modified.');
+    }
+  }
+  ngAfterContentChecked(): void {
+    const tagsArray = this.taskForm.get('tags') as FormArray;
+
+    if (tagsArray.length > 3) {
+      console.log('Too many tags!');
+    }
+  }
+  // ngAfterViewChecked(): void {
+  //   const hasErrors =
+  //     this.taskForm.get('taskName')?.hasError('required') ||
+  //     this.taskForm.get('taskDescription')?.hasError('required');
+
+  //   console.log('Error state changed:', hasErrors);
+  // }
 }

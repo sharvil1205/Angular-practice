@@ -18,6 +18,7 @@
           required
           placeholder="Enter task title"
           #taskName="ngModel"
+          #taskNameInput
         />
         <mat-error *ngIf="taskName.invalid && taskName.touched">
           Title is required.

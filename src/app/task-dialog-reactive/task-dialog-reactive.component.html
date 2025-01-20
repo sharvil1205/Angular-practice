@@ -6,7 +6,7 @@
   <mat-dialog-content class="form-class">
     <mat-form-field appearance="fill">
       <mat-label>Task Name</mat-label>
-      <input matInput formControlName="taskName" />
+      <input matInput formControlName="taskName" #taskNameInput />
       <mat-error *ngIf="taskForm.get('taskName')?.hasError('required')">
         Task Name is required
       </mat-error>

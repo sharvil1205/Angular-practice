@@ -41,7 +41,7 @@ import { MatIconModule } from '@angular/material/icon';
   ],
   standalone: true,
 })
-export class TaskDialogReactiveComponent implements OnInit {
+export class TaskDialogReactiveComponent {
   taskForm!: FormGroup;
   @ViewChild('taskNameInput') taskNameInput!: ElementRef;
 

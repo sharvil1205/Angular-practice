@@ -3,7 +3,8 @@
     <button
       mat-raised-button
       class="add-task-button"
-      (click)="openTaskDialog()"
+      (click)="useReactiveDialog ? addTask() : openTaskPage()"
+      *ngIf="isAllTasksRoute"
     >
       Add Task
     </button>
@@ -32,7 +33,7 @@
             <button
               mat-raised-button
               class="edit-task"
-              (click)="editTask(task)"
+              (click)="useReactiveDialog ? editTask(task) : openTaskPage(task)"
             >
               Edit
             </button>
@@ -57,4 +58,5 @@
       </mat-card-footer>
     </mat-card>
   </div>
+  <router-outlet></router-outlet>
 </div>

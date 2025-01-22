@@ -1,7 +1,5 @@
-.mat-dialog-content {
+.form-content {
   display: flex !important;
   flex-direction: column !important;
-  width: 700px;
   max-width: 100%;
-  min-width: 320px;
 }

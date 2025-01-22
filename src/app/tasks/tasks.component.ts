@@ -1,6 +1,5 @@
-import { Component } from '@angular/core';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { TaskDialogComponent } from '../task-dialog/task-dialog.component';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Router, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -10,7 +9,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatCardModule } from '@angular/material/card';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { TaskDialogReactiveComponent } from '../task-dialog-reactive/task-dialog-reactive.component';
+import { completedTasks, overdueTasks, upcomingTasks } from '../../constants';
 
 @Component({
   selector: 'app-tasks',
@@ -24,64 +25,37 @@ import { TaskDialogReactiveComponent } from '../task-dialog-reactive/task-dialog
     MatNativeDateModule,
     FormsModule,
     ReactiveFormsModule,
-    MatDialogModule,
     MatSlideToggleModule,
     MatCardModule,
+    RouterOutlet,
+    MatDialogModule,
   ],
   templateUrl: './tasks.component.html',
   styleUrls: ['./tasks.component.css'],
 })
 export class TasksComponent {
-  tasks = [
-    {
-      itemId: 2230,
-      taskName: 'Learn JavaScript Basics',
-      taskDescription:
-        'Understand the basics of JavaScript, including variables, loops, and functions.',
-      dueDate: '2025-01-20T00:00:00',
-      createdOn: '2025-01-12T18:30:00.000',
-      isCompleted: false,
-      tags: 'JavaScript, Basics, Programming',
-      completedOn: null,
-    },
-    {
-      itemId: 2231,
-      taskName: 'CSS Grid Practice',
-      taskDescription:
-        'Create a responsive layout using CSS Grid with auto-fit and minmax properties.',
-      dueDate: '2025-01-22T00:00:00',
-      createdOn: '2025-01-13T10:10:00.000',
-      isCompleted: false,
-      tags: 'CSS, Grid, Responsive',
-      completedOn: null,
-    },
-    {
-      itemId: 2232,
-      taskName: 'React State Management',
-      taskDescription:
-        'Explore useState and useReducer hooks in React to manage component state effectively.',
-      dueDate: '2025-01-18T00:00:00',
-      createdOn: '2025-01-13T12:00:00.000',
-      isCompleted: true,
-      tags: 'React, Hooks, State',
-      completedOn: '2025-01-14T15:30:00.000',
-    },
-  ];
+  @Input() tasks: any[] = [];
 
   selectedTask: any = null;
   dialogMode: 'edit' | 'add' = 'add';
-  isDialogOpen = false;
   useReactiveDialog = false;
+  isAllTasksRoute: boolean = false;
+  isDialogOpen = false;
 
-  constructor(private dialog: MatDialog) {}
+  constructor(private router: Router, private dialog: MatDialog) {}
+
+  ngOnInit(): void {
+    this.checkRoute();
+    if (this.tasks.length === 0) {
+      this.tasks = [...upcomingTasks, ...completedTasks, ...overdueTasks];
+    }
+  }
 
   openTaskDialog(task?: any): void {
     this.selectedTask = task ? { ...task } : {};
     this.dialogMode = task ? 'edit' : 'add';
 
-    const dialogComponent = this.useReactiveDialog
-      ? TaskDialogReactiveComponent
-      : TaskDialogComponent;
+    const dialogComponent = TaskDialogReactiveComponent;
 
     const dialogRef = this.dialog.open(dialogComponent as any, {
       data: { task: this.selectedTask, mode: this.dialogMode },
@@ -114,7 +88,31 @@ export class TasksComponent {
     this.openTaskDialog();
   }
 
+  openTaskPage(task?: any): void {
+    this.selectedTask = task ? { ...task } : {};
+    this.dialogMode = task ? 'edit' : 'add';
+
+    if (task) {
+      this.router.navigate(['/allTasks', task.itemId, 'edit'], {
+        state: { task },
+      });
+    } else {
+      this.router.navigate(['/allTasks/add'], {
+        state: { task: { taskName: '', dueDate: null } },
+      });
+    }
+  }
+
   deleteTask(itemId: number): void {
     this.tasks = this.tasks.filter((task) => task.itemId !== itemId);
+  }
+
+  checkRoute() {
+    const currentRoute = this.router.url;
+    if (currentRoute.includes('allTasks')) {
+      this.isAllTasksRoute = true;
+    } else {
+      this.isAllTasksRoute = false;
+    }
   }
 }

@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterLink, RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './header/header.component';
 import { SearchComponent } from './search/search.component';
-import { TasksComponent } from './tasks/tasks.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -19,7 +18,7 @@ import { MatInputModule } from '@angular/material/input';
     RouterOutlet,
     HeaderComponent,
     SearchComponent,
-    TasksComponent,
+    // TasksComponent,
     CommonModule,
     MatFormFieldModule,
     MatInputModule,
@@ -29,10 +28,7 @@ import { MatInputModule } from '@angular/material/input';
     FormsModule,
     ReactiveFormsModule,
     MatDialogModule,
-    MatDialogModule,
-    MatButtonModule,
-    MatInputModule,
-    MatFormFieldModule,
+    RouterLink,
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],

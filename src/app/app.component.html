@@ -1,6 +1,26 @@
 <div class="parent">
   <app-header></app-header>
-  <app-search></app-search>
-  <app-tasks></app-tasks>
-  <router-outlet />
+
+  <div class="page-content">
+    <div class="sidebar">
+      <nav>
+        <ul>
+          <li>
+            <a routerLink="allTasks" routerLinkActive="active">All Tasks</a>
+          </li>
+          <li>
+            <a routerLink="upcoming" routerLinkActive="active">Upcoming</a>
+          </li>
+          <li><a routerLink="done" routerLinkActive="active">Done</a></li>
+          <li><a routerLink="overdue" routerLinkActive="active">Overdue</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="content">
+      <app-search></app-search>
+      <!-- <app-tasks></app-tasks> -->
+      <router-outlet></router-outlet>
+    </div>
+  </div>
 </div>

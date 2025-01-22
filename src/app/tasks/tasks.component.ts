@@ -96,9 +96,7 @@ export class TasksComponent {
         state: { task },
       });
     } else {
-      this.router.navigate(['/allTasks/add'], {
-        state: { task: { taskName: '', dueDate: null } },
-      });
+      this.router.navigate(['/allTasks/add']);
     }
   }
 

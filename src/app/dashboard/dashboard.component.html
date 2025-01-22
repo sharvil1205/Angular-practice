@@ -1,0 +1,15 @@
+<div class="dashboard-container">
+  <nav>
+    <mat-tab-group [mat-stretch-tabs]="false" [selectedIndex]="0">
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <a [routerLink]="['stats']" routerLinkActive="active">Statistics</a>
+        </ng-template>
+      </mat-tab>
+    </mat-tab-group>
+  </nav>
+
+  <div class="dashboard-content">
+    <router-outlet></router-outlet>
+  </div>
+</div>

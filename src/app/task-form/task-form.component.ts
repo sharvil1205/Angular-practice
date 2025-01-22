@@ -44,6 +44,11 @@ export class TaskFormComponent {
           .getCurrentNavigation()
           ?.previousNavigation?.finalUrl?.toString() || '/allTasks'
       : '/allTasks';
+
+    this.route.paramMap.subscribe((params) => {
+      const taskId = params.get('taskId');
+      console.log(taskId);
+    });
   }
 
   ngOnInit(): void {

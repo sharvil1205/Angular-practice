@@ -1,0 +1,10 @@
+.dashboard-container {
+  padding: 20px;
+}
+.dashboard-content {
+  margin-top: 20px;
+}
+.active {
+  font-weight: bold;
+  color: #673ab7;
+}

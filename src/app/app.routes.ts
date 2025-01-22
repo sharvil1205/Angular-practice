@@ -8,47 +8,20 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 
 export const routes: Routes = [
   { path: '', redirectTo: 'allTasks', pathMatch: 'full' },
-
   {
     path: 'allTasks',
-    children: [
-      {
-        path: '',
-        component: TasksComponent,
-      },
-      {
-        path: 'add',
-        component: TaskFormComponent,
-      },
-      {
-        path: ':taskId/edit',
-        component: TaskFormComponent,
-      },
-    ],
+    component: TasksComponent,
   },
   {
-    path: 'upcoming',
-    component: UpcomingTasksComponent,
-    children: [
-      { path: 'add', component: TaskFormComponent },
-      { path: ':taskId/edit', component: TaskFormComponent },
-    ],
+    path: 'allTasks/add',
+    component: TaskFormComponent,
   },
   {
-    path: 'done',
-    component: CompletedTasksComponent,
-    children: [
-      { path: 'add', component: TaskFormComponent },
-      { path: ':taskId/edit', component: TaskFormComponent },
-    ],
+    path: 'allTasks/:taskId/edit',
+    component: TaskFormComponent,
   },
-  {
-    path: 'overdue',
-    component: OverdueTasksComponent,
-    children: [
-      { path: 'add', component: TaskFormComponent },
-      { path: ':taskId/edit', component: TaskFormComponent },
-    ],
-  },
+  { path: 'upcoming', component: UpcomingTasksComponent },
+  { path: 'done', component: CompletedTasksComponent },
+  { path: 'overdue', component: OverdueTasksComponent },
   { path: '**', component: PageNotFoundComponent },
 ];

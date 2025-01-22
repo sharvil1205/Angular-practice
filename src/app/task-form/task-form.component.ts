@@ -48,7 +48,7 @@ export class TaskFormComponent {
 
   ngOnInit(): void {
     const state = this.location.getState() as { task: any };
-    if (state?.task) {
+    if (state?.task?.taskName) {
       this.task = state.task;
       this.mode = 'edit';
     } else {

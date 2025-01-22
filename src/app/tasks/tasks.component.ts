@@ -37,7 +37,7 @@ export class TasksComponent {
   @Input() tasks: any[] = [];
 
   selectedTask: any = null;
-  dialogMode: 'edit' | 'add' = 'add';
+  mode: 'edit' | 'add' = 'add';
   useReactiveDialog = false;
   isAllTasksRoute: boolean = false;
   isDialogOpen = false;
@@ -53,12 +53,12 @@ export class TasksComponent {
 
   openTaskDialog(task?: any): void {
     this.selectedTask = task ? { ...task } : {};
-    this.dialogMode = task ? 'edit' : 'add';
+    this.mode = task ? 'edit' : 'add';
 
     const dialogComponent = TaskDialogReactiveComponent;
 
     const dialogRef = this.dialog.open(dialogComponent as any, {
-      data: { task: this.selectedTask, mode: this.dialogMode },
+      data: { task: this.selectedTask, mode: this.mode },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
@@ -69,7 +69,7 @@ export class TasksComponent {
   }
 
   saveTask(updatedTask: any): void {
-    if (this.dialogMode === 'edit') {
+    if (this.mode === 'edit') {
       const index = this.tasks.findIndex(
         (t) => t.itemId === updatedTask.itemId
       );
@@ -90,8 +90,7 @@ export class TasksComponent {
 
   openTaskPage(task?: any): void {
     this.selectedTask = task ? { ...task } : {};
-    this.dialogMode = task ? 'edit' : 'add';
-
+    this.mode = task ? 'edit' : 'add';
     if (task) {
       this.router.navigate(['/allTasks', task.itemId, 'edit'], {
         state: { task },

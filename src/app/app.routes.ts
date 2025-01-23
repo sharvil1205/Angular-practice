@@ -29,23 +29,10 @@ export const routes: Routes = [
   {
     path: 'allTasks/:taskId/edit',
     component: TaskFormComponent,
-    data: { renderMode: 'client', prerender: false },
-    providers: [
-      {
-        provide: 'getPrerenderParams',
-        useValue: () => {
-          return [{ taskId: '1' }]; // provide default params for prerendering
-        },
-      },
-    ],
+    data: { renderMode: 'client', prerender: false, ssr: false },
   },
   { path: 'upcoming', component: UpcomingTasksComponent },
   { path: 'done', component: CompletedTasksComponent },
   { path: 'overdue', component: OverdueTasksComponent },
   { path: '**', component: PageNotFoundComponent },
 ];
-
-withRouterConfig({
-  paramsInheritanceStrategy: 'always',
-  onSameUrlNavigation: 'reload',
-});

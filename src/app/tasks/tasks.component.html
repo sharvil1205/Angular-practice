@@ -1,5 +1,15 @@
 <div class="tasks-container">
+  <mat-form-field appearance="outline">
+    <mat-label>Search Tasks</mat-label>
+    <input
+      matInput
+      [(ngModel)]="filterText"
+      placeholder="Search by name, tags, or status"
+    />
+  </mat-form-field>
   <div class="header-buttons">
+    <!-- <a routerLink="/allTasks/add">Add Task</a> -->
+
     <button
       mat-raised-button
       class="add-task-button"
@@ -15,15 +25,15 @@
   <!-- Tasks Grid -->
   <div class="tasks-grid">
     <mat-card
-      *ngFor="let task of tasks"
+      *ngFor="let task of tasks | taskFilter : filterText"
       class="task-card"
       [class.completed]="task.isCompleted"
     >
       <div class="task-actions">
         <mat-card-content>
-          <mat-card-title>{{ task.taskName }}</mat-card-title>
+          <mat-card-title>{{ task.taskName | uppercase }}</mat-card-title>
           <p *ngIf="task.taskDescription">
-            {{ task.taskDescription }}
+            {{ task.taskDescription | titlecase | slice : 0 : 100 }}
           </p>
         </mat-card-content>
 
@@ -51,7 +61,7 @@
       <mat-card-footer>
         <div class="task-footer">
           <span class="due-date"
-            >Due: {{ task.dueDate | date : "shortDate" }}</span
+            >Due: {{ task.dueDate | date : "dd/MM/yyyy" }}</span
           >
           <span class="tags">Tags: {{ task.tags }}</span>
         </div>

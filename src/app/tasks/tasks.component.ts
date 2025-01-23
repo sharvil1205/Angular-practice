@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
@@ -12,6 +12,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { TaskDialogReactiveComponent } from '../task-dialog-reactive/task-dialog-reactive.component';
 import { completedTasks, overdueTasks, upcomingTasks } from '../../constants';
+import { TaskFilterPipe } from '../task-filter.pipe';
 
 @Component({
   selector: 'app-tasks',
@@ -29,12 +30,14 @@ import { completedTasks, overdueTasks, upcomingTasks } from '../../constants';
     MatCardModule,
     RouterOutlet,
     MatDialogModule,
+    TaskFilterPipe,
   ],
   templateUrl: './tasks.component.html',
   styleUrls: ['./tasks.component.css'],
 })
 export class TasksComponent {
   @Input() tasks: any[] = [];
+  filterText: string = '';
 
   selectedTask: any = null;
   mode: 'edit' | 'add' = 'add';
@@ -95,6 +98,11 @@ export class TasksComponent {
       this.router.navigate(['/allTasks', task.itemId, 'edit'], {
         state: { task },
       });
+
+      // this.router.navigate(['/allTasks'], {
+      //   queryParams: { id: task.itemId, mode: 'edit' },
+      //   state: { task },
+      // });
     } else {
       this.router.navigate(['/allTasks/add']);
     }

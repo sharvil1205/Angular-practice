@@ -84,7 +84,7 @@ export class TaskFormComponent {
 
     this.tasksService.addTask(task).subscribe({
       next: (response) => {
-        if (response.Result) {
+        if (response?.result) {
           this.toastService.showSuccess('Task added successfully');
           this.location.back();
         }

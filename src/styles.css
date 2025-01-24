@@ -31,16 +31,11 @@ body {
 
 .toast-success {
   background-color: #4caf50 !important;
+  --mdc-snackbar-container-color: #4caf50 !important;
   color: white;
 }
 
 .toast-error {
-  background-color: #f44336 !important;
+  --mdc-snackbar-container-color: #f44336 !important;
   color: white;
-}
-
-.mat-snack-bar-container {
-  border-radius: 4px;
-  padding: 16px;
-  max-width: 300px;
 }

@@ -39,7 +39,11 @@
 
         <mat-card-content>
           <div class="task-buttons">
-            <mat-slide-toggle [(ngModel)]="task.isCompleted" color="primary" />
+            <mat-slide-toggle
+              [(ngModel)]="task.isCompleted"
+              color="primary"
+              (change)="toggleTaskCompletion(task)"
+            />
             <button
               mat-raised-button
               class="edit-task"

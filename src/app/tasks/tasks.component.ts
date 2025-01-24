@@ -15,6 +15,7 @@ import { TaskFilterPipe } from '../task-filter.pipe';
 import { TasksService } from '../tasks.service';
 import { HttpClientModule } from '@angular/common/http';
 import { ToastService } from '../toast.service';
+import { TaskDueDateDirective } from '../task-due-date.directive';
 
 @Component({
   selector: 'app-tasks',
@@ -34,6 +35,7 @@ import { ToastService } from '../toast.service';
     MatDialogModule,
     TaskFilterPipe,
     HttpClientModule,
+    TaskDueDateDirective,
   ],
   templateUrl: './tasks.component.html',
   styleUrls: ['./tasks.component.css'],

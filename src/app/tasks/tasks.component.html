@@ -64,9 +64,9 @@
 
       <mat-card-footer>
         <div class="task-footer">
-          <span class="due-date"
-            >Due: {{ task.dueDate | date : "dd/MM/yyyy" }}</span
-          >
+          <span class="due-date" appTaskDueDate="{{ task.dueDate }}">
+            Due: {{ task.dueDate | date : "dd/MM/yyyy" }}
+          </span>
           <span class="tags">Tags: {{ task.tags }}</span>
         </div>
       </mat-card-footer>

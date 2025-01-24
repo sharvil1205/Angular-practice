@@ -28,3 +28,14 @@ body {
 .save-button:hover {
   background-color: #0b5fb2 !important;
 }
+
+.toast-success {
+  background-color: #4caf50 !important;
+  --mdc-snackbar-container-color: #4caf50 !important;
+  color: white;
+}
+
+.toast-error {
+  --mdc-snackbar-container-color: #f44336 !important;
+  color: white;
+}

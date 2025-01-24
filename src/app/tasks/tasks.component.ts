@@ -11,8 +11,10 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { TaskDialogReactiveComponent } from '../task-dialog-reactive/task-dialog-reactive.component';
-import { completedTasks, overdueTasks, upcomingTasks } from '../../constants';
 import { TaskFilterPipe } from '../task-filter.pipe';
+import { TasksService } from '../tasks.service';
+import { HttpClientModule } from '@angular/common/http';
+import { ToastService } from '../toast.service';
 
 @Component({
   selector: 'app-tasks',
@@ -31,9 +33,11 @@ import { TaskFilterPipe } from '../task-filter.pipe';
     RouterOutlet,
     MatDialogModule,
     TaskFilterPipe,
+    HttpClientModule,
   ],
   templateUrl: './tasks.component.html',
   styleUrls: ['./tasks.component.css'],
+  providers: [TasksService, ToastService],
 })
 export class TasksComponent {
   @Input() tasks: any[] = [];
@@ -45,13 +49,27 @@ export class TasksComponent {
   isAllTasksRoute: boolean = false;
   isDialogOpen = false;
 
-  constructor(private router: Router, private dialog: MatDialog) {}
+  constructor(
+    private router: Router,
+    private dialog: MatDialog,
+    private tasksService: TasksService,
+    private toastService: ToastService
+  ) {}
 
   ngOnInit(): void {
     this.checkRoute();
-    if (this.tasks.length === 0) {
-      this.tasks = [...upcomingTasks, ...completedTasks, ...overdueTasks];
-    }
+    if (this.isAllTasksRoute) this.loadTasks();
+  }
+
+  loadTasks(): void {
+    this.tasksService.getAllTasks().subscribe({
+      next: (response) => {
+        this.tasks = response.data || [];
+      },
+      error: (error) => {
+        console.error('Error fetching tasks', error);
+      },
+    });
   }
 
   openTaskDialog(task?: any): void {
@@ -68,6 +86,29 @@ export class TasksComponent {
       if (result) {
         this.saveTask(result);
       }
+    });
+  }
+
+  toggleTaskCompletion(task: any): void {
+    const updatedTask = { ...task, isCompleted: task.isCompleted };
+
+    this.tasksService.updateTask(updatedTask).subscribe({
+      next: (response) => {
+        if (response?.result) {
+          task.isCompleted = updatedTask.isCompleted;
+          this.toastService.showSuccess(
+            `Task marked as ${task.isCompleted ? 'Complete' : 'Incomplete'}`
+          );
+        } else {
+          this.toastService.showError('Failed to update task status');
+        }
+      },
+      error: (error) => {
+        console.error('Error updating task status', error);
+        this.toastService.showError(
+          'An error occurred while updating the task'
+        );
+      },
     });
   }
 
@@ -108,8 +149,23 @@ export class TasksComponent {
     }
   }
 
-  deleteTask(itemId: number): void {
-    this.tasks = this.tasks.filter((task) => task.itemId !== itemId);
+  deleteTask(id: number): void {
+    this.tasksService.deleteTask(id).subscribe({
+      next: (response) => {
+        if (response?.result) {
+          this.toastService.showSuccess('Task deleted successfully');
+          this.loadTasks();
+        } else {
+          this.toastService.showError('Failed to delete the task');
+        }
+      },
+      error: (error) => {
+        console.error('Error deleting task', error);
+        this.toastService.showError(
+          'An error occurred while deleting the task'
+        );
+      },
+    });
   }
 
   checkRoute() {

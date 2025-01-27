@@ -39,7 +39,7 @@ import { TaskDueDateDirective } from '../task-due-date.directive';
   ],
   templateUrl: './tasks.component.html',
   styleUrls: ['./tasks.component.css'],
-  providers: [TasksService, ToastService],
+  providers: [TasksService],
 })
 export class TasksComponent {
   @Input() tasks: any[] = [];

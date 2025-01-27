@@ -2,9 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class TasksService {
   private readonly API_BASE_URL =
     'https://freeapi.miniprojectideas.com/api/JWT';
@@ -13,10 +11,6 @@ export class TasksService {
 
   getAllTasks(): Observable<any> {
     return this.http.get(`${this.API_BASE_URL}/GetAllTaskList`);
-  }
-
-  getTaskById(id: number): Observable<any> {
-    return this.http.get(`${this.API_BASE_URL}/GetTask/${id}`);
   }
 
   addTask(task: {

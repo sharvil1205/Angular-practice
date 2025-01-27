@@ -1,4 +1,4 @@
-# CRUD-Frontend
+# TODO App: AngularJS
 
 Frontend part of the CRUD App. Tech stack: Angular JS
 

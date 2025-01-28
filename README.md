@@ -1,6 +1,6 @@
-# TODO App: AngularJS
+# AngularJS Practice
 
-Frontend part of the CRUD App. Tech stack: Angular JS
+Tech stack: Angular JS
 
 # Frontend
 

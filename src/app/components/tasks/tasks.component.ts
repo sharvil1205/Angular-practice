@@ -10,12 +10,13 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { TaskDialogReactiveComponent } from '../task-dialog-reactive/task-dialog-reactive.component';
-import { TaskFilterPipe } from '../task-filter.pipe';
-import { TasksService } from '../tasks.service';
+import { TaskFilterPipe } from './pipes/task-filter.pipe';
+import { TasksService } from './services/tasks.service';
 import { HttpClientModule } from '@angular/common/http';
-import { ToastService } from '../toast.service';
-import { TaskDueDateDirective } from '../task-due-date.directive';
+import { ToastService } from '../../services/toast.service';
+import { TaskDueDateDirective } from './directives/task-due-date.directive';
+import { MatIconModule } from '@angular/material/icon';
+import { TaskDialogReactiveComponent } from './components/task-dialog-reactive/task-dialog-reactive.component';
 
 @Component({
   selector: 'app-tasks',
@@ -36,6 +37,7 @@ import { TaskDueDateDirective } from '../task-due-date.directive';
     TaskFilterPipe,
     HttpClientModule,
     TaskDueDateDirective,
+    MatIconModule,
   ],
   templateUrl: './tasks.component.html',
   styleUrls: ['./tasks.component.css'],
@@ -137,15 +139,12 @@ export class TasksComponent {
   openTaskPage(task?: any): void {
     this.selectedTask = task ? { ...task } : {};
     this.mode = task ? 'edit' : 'add';
+
     if (task) {
-      this.router.navigate(['/allTasks', task.itemId, 'edit'], {
+      this.router.navigate(['/allTasks/edit'], {
+        queryParams: { itemId: task.itemId },
         state: { task },
       });
-
-      // this.router.navigate(['/allTasks'], {
-      //   queryParams: { id: task.itemId, mode: 'edit' },
-      //   state: { task },
-      // });
     } else {
       this.router.navigate(['/allTasks/add']);
     }

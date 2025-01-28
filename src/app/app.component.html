@@ -1,29 +1,50 @@
-<div class="parent">
-  <app-header></app-header>
+<div class="h-screen flex flex-col overflow-hidden">
+  <header
+    class="sticky top-0 z-50 h-16 bg-blue-800 text-white flex items-center px-6 shadow-lg"
+  >
+    <div class="flex items-center justify-between w-full">
+      <h1 class="text-2xl font-bold">Angular Practice</h1>
+      <div class="flex items-center space-x-4">
+        <button class="p-2 hover:bg-blue-700 rounded-full">
+          <span class="sr-only">Shopping Cart</span>
+          <mat-icon aria-hidden="false" aria-label="Shopping cart icon"
+            >shopping_cart</mat-icon
+          >
+        </button>
+      </div>
+    </div>
+  </header>
 
-  <div class="page-content">
-    <div class="sidebar">
-      <nav>
-        <ul>
+  <div class="flex flex-1 overflow-hidden">
+    <div class="w-64 bg-white shadow-lg flex-shrink-0">
+      <nav class="sticky top-16 h-[calc(100vh-4rem)] overflow-y-auto px-4 py-6">
+        <ul class="space-y-1">
           <li>
-            <a routerLink="dashboard" routerLinkActive="active">Dashboard</a>
+            <a
+              routerLink="/allTasks"
+              routerLinkActive="bg-blue-50 text-blue-800"
+              class="flex items-center px-4 py-3 text-gray-700 rounded-lg hover:bg-gray-200"
+            >
+              <mat-icon class="mr-3">task</mat-icon>
+              All Tasks
+            </a>
           </li>
           <li>
-            <a routerLink="allTasks" routerLinkActive="active">All Tasks</a>
+            <a
+              routerLink="/courses"
+              routerLinkActive="bg-blue-50 text-blue-800"
+              class="flex items-center px-4 py-3 text-gray-700 rounded-lg hover:bg-gray-200"
+            >
+              <mat-icon class="mr-3">book</mat-icon>
+              Courses
+            </a>
           </li>
-          <li>
-            <a routerLink="upcoming" routerLinkActive="active">Upcoming</a>
-          </li>
-          <li><a routerLink="done" routerLinkActive="active">Done</a></li>
-          <li><a routerLink="overdue" routerLinkActive="active">Overdue</a></li>
         </ul>
       </nav>
     </div>
 
-    <div class="content">
-      <!-- <app-search></app-search> -->
-      <!-- <app-tasks></app-tasks> -->
+    <main class="flex-1 overflow-y-auto bg-[#f5f5f5] p-8">
       <router-outlet></router-outlet>
-    </div>
+    </main>
   </div>
 </div>

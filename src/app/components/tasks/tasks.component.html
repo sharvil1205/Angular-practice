@@ -1,15 +1,21 @@
-<div class="tasks-container">
-  <mat-form-field appearance="outline">
-    <mat-label>Search Tasks</mat-label>
-    <input
-      matInput
-      [(ngModel)]="filterText"
-      placeholder="Search by name, tags, or status"
-    />
-  </mat-form-field>
-  <div class="header-buttons">
-    <!-- <a routerLink="/allTasks/add">Add Task</a> -->
+<div class="p-[20px]">
+  <div class="w-full mb-6">
+    <div class="relative w-full max-w-xl mx-auto">
+      <mat-icon
+        class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+        aria-hidden="true"
+        >search</mat-icon
+      >
+      <input
+        matInput
+        [(ngModel)]="filterText"
+        placeholder="Search by name, description, or tags"
+        class="w-full py-2 pl-10 pr-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-800 focus:border-blue-800 transition-all"
+      />
+    </div>
+  </div>
 
+  <div class="flex justify-between">
     <button
       mat-raised-button
       class="add-task-button"
@@ -19,26 +25,25 @@
       Add Task
     </button>
     <mat-slide-toggle [(ngModel)]="useReactiveDialog">
-      Use Reactive Task Dialog
+      Dialog View
     </mat-slide-toggle>
   </div>
-  <!-- Tasks Grid -->
-  <div class="tasks-grid">
+  <div class="tasks-grid gap-5">
     <mat-card
       *ngFor="let task of tasks | taskFilter : filterText"
       class="task-card"
       [class.completed]="task.isCompleted"
     >
-      <div class="task-actions">
+      <div class="flex flex-row justify-between">
         <mat-card-content>
           <mat-card-title>{{ task.taskName | uppercase }}</mat-card-title>
-          <p *ngIf="task.taskDescription">
+          <p *ngIf="task.taskDescription" class="text-[#7f8c8d] text-md py-2">
             {{ task.taskDescription | titlecase | slice : 0 : 100 }}
           </p>
         </mat-card-content>
 
         <mat-card-content>
-          <div class="task-buttons">
+          <div class="flex flex-col">
             <mat-slide-toggle
               [(ngModel)]="task.isCompleted"
               color="primary"
@@ -64,10 +69,10 @@
 
       <mat-card-footer>
         <div class="task-footer">
-          <span class="due-date" appTaskDueDate="{{ task.dueDate }}">
+          <span class="font-semibold" appTaskDueDate="{{ task.dueDate }}">
             Due: {{ task.dueDate | date : "dd/MM/yyyy" }}
           </span>
-          <span class="tags">Tags: {{ task.tags }}</span>
+          <span class="italic">Tags: {{ task.tags }}</span>
         </div>
       </mat-card-footer>
     </mat-card>

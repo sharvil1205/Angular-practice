@@ -1,5 +1,5 @@
 .add-task-button {
-  background-color: darkblue !important;
+  background-color: #1e40af !important;
   color: white !important;
   padding: 12px 24px;
   border: none;
@@ -11,22 +11,6 @@
 
 .add-task-button:hover {
   background-color: #0b5fb2 !important;
-}
-
-.tasks-container {
-  padding: 20px;
-}
-
-.tasks-container h2 {
-  text-align: center;
-  color: #2c3e50;
-  margin-bottom: 20px;
-  font-size: 2rem;
-}
-
-.header-buttons {
-  display: flex;
-  justify-content: space-between;
 }
 
 .tasks-grid {
@@ -43,33 +27,10 @@
   transition: transform 0.3s ease-in-out;
 }
 
-.task-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-}
-
 .task-header h3 {
   margin: 0;
   font-size: 1.2rem;
   color: #34495e;
-}
-
-.task-description {
-  margin: 5px 0;
-  font-size: 0.9rem;
-  color: #7f8c8d;
-}
-
-.task-actions {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-
-.task-buttons {
-  display: flex;
-  flex-direction: column;
 }
 
 .task-footer {
@@ -78,15 +39,6 @@
   margin-top: 15px;
   display: flex;
   justify-content: space-between;
-}
-
-.task-footer .due-date {
-  font-weight: bold;
-}
-
-.task-footer .tags {
-  margin-left: 10px;
-  font-style: italic;
 }
 
 .task-card.completed {

@@ -8,9 +8,9 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
-import { TasksService } from '../tasks.service';
+import { TasksService } from '../../services/tasks.service';
 import { HttpClientModule } from '@angular/common/http';
-import { ToastService } from '../toast.service';
+import { ToastService } from '../../../../services/toast.service';
 
 @Component({
   selector: 'app-task-form',

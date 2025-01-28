@@ -1,0 +1,8 @@
+<mat-tab-group
+  [(selectedIndex)]="selectedIndex"
+  (selectedIndexChange)="onTabChange($event)"
+>
+  <mat-tab label="Mentor"></mat-tab>
+  <mat-tab label="Mentee"></mat-tab>
+</mat-tab-group>
+<router-outlet></router-outlet>

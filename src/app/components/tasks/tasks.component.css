@@ -1,30 +1,11 @@
-.add-task-button {
-  background-color: #1e40af !important;
-  color: white !important;
-  padding: 12px 24px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 1rem;
-  margin-bottom: 20px;
+.task-card.completed {
+  background-color: #d4edda;
+  border-left: 5px solid #28a745;
 }
 
-.add-task-button:hover {
-  background-color: #0b5fb2 !important;
-}
-
-.tasks-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-  gap: 20px;
-}
-
-.task-card {
-  background-color: #ffffff;
-  padding: 10px;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease-in-out;
+.task-card.completed h3 {
+  text-decoration: line-through;
+  color: #155724;
 }
 
 .task-header h3 {
@@ -39,42 +20,4 @@
   margin-top: 15px;
   display: flex;
   justify-content: space-between;
-}
-
-.task-card.completed {
-  background-color: #d4edda;
-  border-left: 5px solid #28a745;
-}
-
-.task-card.completed h3 {
-  text-decoration: line-through;
-  color: #155724;
-}
-
-.edit-task,
-.delete-task {
-  padding: 6px 12px;
-  font-size: 1rem;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  margin-top: 10px;
-}
-
-.edit-task {
-  background-color: #f39c12 !important;
-  color: white !important;
-}
-
-.edit-task:hover {
-  background-color: #e67e22;
-}
-
-.delete-task {
-  background-color: #e74c3c !important;
-  color: white !important;
-}
-
-.delete-task:hover {
-  background-color: #c0392b;
 }

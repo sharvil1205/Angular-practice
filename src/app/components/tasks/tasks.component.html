@@ -1,4 +1,4 @@
-<div class="p-[20px]">
+<div>
   <div class="w-full mb-6">
     <div class="relative w-full max-w-xl mx-auto">
       <mat-icon
@@ -10,15 +10,14 @@
         matInput
         [(ngModel)]="filterText"
         placeholder="Search by name, description, or tags"
-        class="w-full py-2 pl-10 pr-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-800 focus:border-blue-800 transition-all"
+        class="text-base xs:text-xs md:text-xs w-full py-2 pl-10 pr-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-800 focus:border-blue-800 transition-all"
       />
     </div>
   </div>
 
-  <div class="flex justify-between">
+  <div class="flex justify-between pb-4">
     <button
-      mat-raised-button
-      class="add-task-button"
+      class="py-2 px-4 h-8 text-xs md:w-16 lg:w-[7rem] lg:text-base lg:h-10 bg-[#1e40af] text-white font-medium rounded-lg hover:bg-yellow-blue-500"
       (click)="useReactiveDialog ? addTask() : openTaskPage()"
       *ngIf="isAllTasksRoute"
     >
@@ -28,37 +27,46 @@
       Dialog View
     </mat-slide-toggle>
   </div>
-  <div class="tasks-grid gap-5">
+  <div
+    class="grid gap-5 grid-cols-[repeat(auto-fit,minmax(200px,1fr))] sm:grid-cols-[repeat(auto-fit,minmax(280px,1fr))] md:grid-cols-[repeat(auto-fit,minmax(320px,1fr))] xl:grid-cols-[repeat(auto-fit,minmax(450px,1fr))]"
+  >
     <mat-card
       *ngFor="let task of tasks | taskFilter : filterText"
-      class="task-card"
-      [class.completed]="task.isCompleted"
+      class="task-card bg-white p-4 rounded-lg shadow-md"
+      [ngClass]="{
+        'completed bg-green-100 border-l-4 border-green-600': task.isCompleted
+      }"
     >
       <div class="flex flex-row justify-between">
         <mat-card-content>
-          <mat-card-title>{{ task.taskName | uppercase }}</mat-card-title>
-          <p *ngIf="task.taskDescription" class="text-[#7f8c8d] text-md py-2">
+          <div class="text-base sm:text-xl md:text-xl lg:text-2xl line-clamp-1">
+            {{ task.taskName | uppercase | slice : 0 : 10 }}
+          </div>
+
+          <p
+            *ngIf="task.taskDescription"
+            class="text-[#7f8c8d] text-xs sm:text-md md:text-md lg:text-base py-2 line-clamp-3 overflow-hidden"
+          >
             {{ task.taskDescription | titlecase | slice : 0 : 100 }}
           </p>
         </mat-card-content>
 
         <mat-card-content>
-          <div class="flex flex-col">
+          <div class="flex flex-col gap-4">
             <mat-slide-toggle
               [(ngModel)]="task.isCompleted"
               color="primary"
               (change)="toggleTaskCompletion(task)"
             />
             <button
-              mat-raised-button
-              class="edit-task"
+              class="py-2 px-4 w-16 h-8 text-xs md:w-16 lg:w-20 lg:text-base lg:h-10 bg-[#f39c12] text-white font-medium rounded-lg hover:bg-yellow-400"
               (click)="useReactiveDialog ? editTask(task) : openTaskPage(task)"
             >
               Edit
             </button>
+
             <button
-              mat-raised-button
-              class="delete-task"
+              class="py-2 px-4 w-16 h-8 text-xs md:w-16 lg:w-20 lg:text-base lg:h-10 bg-red-500 text-white font-medium rounded-lg hover:bg-red-400"
               (click)="deleteTask(task.itemId)"
             >
               Delete
@@ -69,10 +77,16 @@
 
       <mat-card-footer>
         <div class="task-footer">
-          <span class="font-semibold" appTaskDueDate="{{ task.dueDate }}">
+          <span
+            class="font-semibold text-xs sm:text-md md:text-md lg:text-base"
+            appTaskDueDate="{{ task.dueDate }}"
+          >
             Due: {{ task.dueDate | date : "dd/MM/yyyy" }}
           </span>
-          <span class="italic">Tags: {{ task.tags }}</span>
+          <span
+            class="italic text-xs sm:text-md md:text-md lg:text-base line-clamp-1"
+            >Tags: {{ task.tags }}</span
+          >
         </div>
       </mat-card-footer>
     </mat-card>

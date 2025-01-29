@@ -17,28 +17,28 @@
 
   <div class="flex flex-1 overflow-hidden">
     <div
-      class="w-1/6 max-w-1/3 bg-white shadow-lg flex-shrink-0 md:w-1/4 sm:w-1/2 xs:w-full"
+      class="bg-white shadow-lg flex-shrink-0 w-[7rem] md:w-1/6 sm:w-1/3 lg:w-[12rem] h-screen"
     >
-      <nav class="sticky top-16 h-[calc(100vh-4rem)] overflow-y-auto px-4 py-6">
-        <ul class="space-y-1">
+      <nav class="h-full py-6 lg:px-4">
+        <ul class="flex flex-col gap-2">
           <li>
             <a
               routerLink="/allTasks"
               routerLinkActive="bg-blue-50 text-blue-800"
-              class="flex items-center px-4 py-3 text-gray-700 rounded-lg hover:bg-gray-200"
+              class="flex items-center justify-center gap-2 py-3 text-sm sm:text-base md:text-lg text-gray-700 rounded-lg hover:bg-gray-200"
             >
-              <mat-icon class="mr-3">task</mat-icon>
-              All Tasks
+              <mat-icon class="text-md xs:text-sm">task</mat-icon>
+              <span class="text-base xs:text-xs">All Tasks</span>
             </a>
           </li>
           <li>
             <a
               routerLink="/courses"
               routerLinkActive="bg-blue-50 text-blue-800"
-              class="flex items-center px-4 py-3 text-gray-700 rounded-lg hover:bg-gray-200"
+              class="flex items-center justify-center gap-2 py-3 text-sm sm:text-base md:text-lg text-gray-700 rounded-lg hover:bg-gray-200"
             >
-              <mat-icon class="mr-3">book</mat-icon>
-              Courses
+              <mat-icon class="text-md xs:text-sm">book</mat-icon>
+              <span class="text-base xs:text-xs">Courses</span>
             </a>
           </li>
         </ul>

@@ -10,6 +10,7 @@
         matInput
         [(ngModel)]="filterText"
         placeholder="Search by name, description, or tags"
+        aria-label="Search tasks by name, description, or tags"
         class="text-base xs:text-xs md:text-xs w-full py-2 pl-10 pr-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-800 focus:border-blue-800 transition-all"
       />
     </div>
@@ -23,7 +24,10 @@
     >
       Add Task
     </button>
-    <mat-slide-toggle [(ngModel)]="useReactiveDialog">
+    <mat-slide-toggle
+      [(ngModel)]="useReactiveDialog"
+      aria-label="Toggle dialog view"
+    >
       Dialog View
     </mat-slide-toggle>
   </div>
@@ -57,6 +61,7 @@
               [(ngModel)]="task.isCompleted"
               color="primary"
               (change)="toggleTaskCompletion(task)"
+              [attr.aria-label]="'Mark ' + task.taskName + ' as complete'"
             />
             <button
               class="py-2 px-4 w-16 h-8 text-xs md:w-16 lg:w-20 lg:text-base lg:h-10 bg-[#f39c12] text-white font-medium rounded-lg hover:bg-yellow-400"

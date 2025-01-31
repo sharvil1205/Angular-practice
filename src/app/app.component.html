@@ -1,15 +1,13 @@
 <div class="h-screen flex flex-col overflow-hidden">
-  <!-- Header -->
   <header
     role="banner"
-    class="sticky top-0 z-50 h-16 max-h-16 bg-blue-800 text-white flex items-center px-6 shadow-lg"
+    class="sticky top-0 z-50 h-16 max-h-16 bg-blue-800 text-white flex items-center lg:px-6 px-2 shadow-lg"
   >
     <div class="flex items-center justify-between w-full">
       <h1 class="text-base font-semibold lg:text-2xl lg:font-bold">
         Angular Practice
       </h1>
 
-      <!-- Routes for xs screens inside header -->
       <nav class="sm:hidden flex gap-4">
         <a
           routerLink="/allTasks"
@@ -29,7 +27,6 @@
         </a>
       </nav>
 
-      <!-- Shopping Cart -->
       <div class="flex items-center space-x-4">
         <button class="p-2 hover:bg-blue-700 rounded-full" role="button">
           <span class="sr-only">Shopping Cart</span>
@@ -42,7 +39,6 @@
   </header>
 
   <div class="flex flex-1 overflow-hidden">
-    <!-- Sidebar for sm and above -->
     <div
       aria-label="Sidebar"
       class="hidden sm:block bg-white shadow-lg flex-shrink-0 w-[7rem] md:w-1/6 sm:w-1/3 lg:w-[12rem] h-screen"
@@ -73,7 +69,6 @@
       </nav>
     </div>
 
-    <!-- Main Content -->
     <main class="flex-1 overflow-y-auto bg-[#f5f5f5] p-8" role="main">
       <router-outlet></router-outlet>
     </main>
